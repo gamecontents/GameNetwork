@@ -116,13 +116,16 @@ public class SocketSampleUDP : MonoBehaviour
 		Debug.Log("[UDP]Start communication.");
 
 		// 서버에 접속.
-        // (코드를 작성하시오)
+		m_socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
 
 		// 메시지 송신.
-        // (코드를 작성하시오)
+		byte[] buffer = System.Text.Encoding.UTF8.GetBytes("Hello, this is client.");
+		IPEndPoint endpoint = new IPEndPoint(IPAddress.Parse(m_address), m_port);
+		m_socket.SendTo(buffer, buffer.Length, SocketFlags.None, endpoint);
 
 		// 접속 종료.
-        // (코드를 작성하시오)
+		m_socket.Shutdown(SocketShutdown.Both);
+		m_socket.Close();
 
 		m_state = State.Endcommunication;
 
